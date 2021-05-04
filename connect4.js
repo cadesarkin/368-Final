@@ -1,21 +1,100 @@
+let checkArray = [];
+for (let i = 0; i <= 6; i++) {
+    checkArray.push([null,null,null,null,null,null,null]);
+}
+
+let gameWon = false;
+let playerNumber = 1;
+
+
 function game(id) {
-    let count = 0;
     row = parseInt(id.charAt(3));
     column = parseInt(id.charAt(10));
-    if (count % 2 == 0) {
-        player1click(id);
-    } else {
-        player2click(id);
+    if (gameWon == false) {
+        checkArea(row, column, id, playerNumber);
+        if (playerNumber == 1) {
+            playerNumber++;
+        } else {
+            playerNumber--;
+        }
     }
-    count++;
 }
 
-function checkArea() {
+function checkArea(row, col, id, playerNumber) {
+    if (row == 6) {
+        click(row, col, ("row" + row.toString() + "column" + col.toString()), playerNumber); 
+        return;
+    }
+    while(checkArray[row+1][col] == null) {
+        console.log(row);
+        if (row+1 == 6) {
+            click(row+1, col, ("row" + (row+1).toString() + "column" + col.toString()), playerNumber);
+            return;
+        }
+        row++;
+    }
+    click(row, col, ("row" + row.toString() + "column" + col.toString()), playerNumber);
+    return;
+}
+function click(row, col, id, playerNumber) {
+    if (playerNumber == 1) {
+        document.getElementById(id).style.backgroundColor="yellow";
+        checkArray[row][col] = 1;
+        checkWon(playerNumber);
+    } else if (playerNumber == 2) {
+        document.getElementById(id).style.backgroundColor="red";
+        checkArray[row][col] = 2;
+        checkWon(playerNumber);
+    }
+}
 
+function checkVertical(playerNumber) {
+    for (let col = 0; col <= 6; col++) {
+        for (let row = 6; row >= 3; row--) {
+            if (checkArray[row][col] == playerNumber && checkArray[row-1][col] == playerNumber && checkArray[row-2][col] == playerNumber && checkArray[row-3][col] == playerNumber) {
+                console.log("true");
+                gameWon = true;
+            } 
+        }
+    }
 }
-function player1click(id) {
-    document.getElementById(id).style.backgroundColor="yellow";
+
+function checkDiagRight(playerNumber) {
+    for (let col = 0; col <= 6; col++) {
+        for (let row = 6; row >= 3; row--) {
+            if (checkArray[row][col] == playerNumber && checkArray[row-1][col+1] == playerNumber && checkArray[row-2][col+2] == playerNumber && checkArray[row-3][col+3] == playerNumber) {
+                console.log("true");
+                gameWon = true;
+            } 
+        }
+    }
 }
-function player2click(id) {
-    document.getElementById(id).style.backgroundColor="red";
+
+function checkHorizontal(playerNumber) {
+    for (let row = 0; row <= 6; row++) {
+        for (let col = 6; col >= 3; col--) {
+            if (checkArray[row][col] == playerNumber && checkArray[row][col-1] == playerNumber && checkArray[row][col-2] == playerNumber && checkArray[row][col-3] == playerNumber) {
+                console.log("true");
+                gameWon = true;
+            } 
+        }
+    }
+}
+
+function checkDiagLeft(playerNumber) {
+    for (let col = 0; col <= 6; col++) {
+        for (let row = 6; row >= 3; row--) {
+            if (checkArray[row][col] == playerNumber && checkArray[row-1][col-1] == playerNumber && checkArray[row-2][col-2] == playerNumber && checkArray[row-3][col-3] == playerNumber) {
+                console.log("true");
+                gameWon = true;
+            } 
+        }
+    }
+}
+
+function checkWon(playerNumber) {
+    checkVertical(playerNumber);
+    checkHorizontal(playerNumber);
+    checkDiagLeft(playerNumber);
+    checkDiagRight(playerNumber);
 }
