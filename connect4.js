@@ -12,6 +12,9 @@ function game(id) {
     column = parseInt(id.charAt(10));
     if (gameWon == false) {
         checkArea(row, column, id, playerNumber);
+        if (gameWon == true) {
+            alert("Player " + playerNumber + " won! Reload the page to play again!");
+        }
         if (playerNumber == 1) {
             playerNumber++;
         } else {
@@ -26,7 +29,6 @@ function checkArea(row, col, id, playerNumber) {
         return;
     }
     while(checkArray[row+1][col] == null) {
-        console.log(row);
         if (row+1 == 6) {
             click(row+1, col, ("row" + (row+1).toString() + "column" + col.toString()), playerNumber);
             return;
@@ -52,7 +54,6 @@ function checkVertical(playerNumber) {
     for (let col = 0; col <= 6; col++) {
         for (let row = 6; row >= 3; row--) {
             if (checkArray[row][col] == playerNumber && checkArray[row-1][col] == playerNumber && checkArray[row-2][col] == playerNumber && checkArray[row-3][col] == playerNumber) {
-                console.log("true");
                 gameWon = true;
             } 
         }
@@ -63,7 +64,6 @@ function checkDiagRight(playerNumber) {
     for (let col = 0; col <= 6; col++) {
         for (let row = 6; row >= 3; row--) {
             if (checkArray[row][col] == playerNumber && checkArray[row-1][col+1] == playerNumber && checkArray[row-2][col+2] == playerNumber && checkArray[row-3][col+3] == playerNumber) {
-                console.log("true");
                 gameWon = true;
             } 
         }
@@ -74,7 +74,6 @@ function checkHorizontal(playerNumber) {
     for (let row = 0; row <= 6; row++) {
         for (let col = 6; col >= 3; col--) {
             if (checkArray[row][col] == playerNumber && checkArray[row][col-1] == playerNumber && checkArray[row][col-2] == playerNumber && checkArray[row][col-3] == playerNumber) {
-                console.log("true");
                 gameWon = true;
             } 
         }
@@ -85,7 +84,6 @@ function checkDiagLeft(playerNumber) {
     for (let col = 0; col <= 6; col++) {
         for (let row = 6; row >= 3; row--) {
             if (checkArray[row][col] == playerNumber && checkArray[row-1][col-1] == playerNumber && checkArray[row-2][col-2] == playerNumber && checkArray[row-3][col-3] == playerNumber) {
-                console.log("true");
                 gameWon = true;
             } 
         }
