@@ -10,17 +10,27 @@ let playerNumber = 1;
 function game(id) {
     row = parseInt(id.charAt(3));
     column = parseInt(id.charAt(10));
-    if (gameWon == false) {
-        checkArea(row, column, id, playerNumber);
+    let promise = function gameState(){
+        return new Promise((resolve, reject) => { 
+            console.log("got here");
+            if (gameWon == false) {
+                checkArea(row, column, id, playerNumber);
+            }
+            setTimeout(() => {  
+                resolve()
+            }, 100) 
+        })
+    }
+    promise().then(() => {
         if (gameWon == true) {
-            alert("Player " + playerNumber + " won! Reload the page to play again!");
+            alert("Player " + playerNumber + " wins! Please reload the page to play again!");
         }
         if (playerNumber == 1) {
             playerNumber++;
         } else {
             playerNumber--;
         }
-    }
+    })
 }
 
 function checkArea(row, col, id, playerNumber) {
