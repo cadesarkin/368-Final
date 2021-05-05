@@ -6,7 +6,6 @@ for (let i = 0; i <= 6; i++) {
 let gameWon = false;
 let playerNumber = 1;
 
-
 function game(id) {
     row = parseInt(id.charAt(3));
     column = parseInt(id.charAt(10));
@@ -47,6 +46,7 @@ function checkArea(row, col, id, playerNumber) {
     click(row, col, ("row" + row.toString() + "column" + col.toString()), playerNumber);
     return;
 }
+
 function click(row, col, id, playerNumber) {
     if (playerNumber == 1) {
         document.getElementById(id).style.backgroundColor="yellow";
