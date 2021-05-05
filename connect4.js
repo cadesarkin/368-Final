@@ -12,7 +12,6 @@ function game(id) {
     column = parseInt(id.charAt(10));
     let promise = function gameState(){
         return new Promise((resolve, reject) => { 
-            console.log("got here");
             if (gameWon == false) {
                 checkArea(row, column, id, playerNumber);
             }
